@@ -194,6 +194,29 @@ const Login = async (req, res) => {
       res.status(500).json({ message: "Logout failed" });
     }
   };
+  const getUser = async (req, res) => {
+    try {
+      // Extract user ID from request body
+      const userId = req.body.id;
+  
+      // Validate user ID (optional)
+      // You can add validation logic here to ensure a valid ID format
+  
+      // Find user by ID using your user model/schema
+      const user = await userSchema.findById(userId);
+  
+      // Check if user exists
+      if (!user) {
+        return res.status(404).json({ success: false, message: 'User not found' });
+      }
+  
+      // Return user information
+      res.status(200).json({ success: true, data: user });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).json({ success: false, message: 'Server Error' });
+    }
+  };
   
 
 
@@ -202,5 +225,6 @@ const Login = async (req, res) => {
     allUsers,
     signUp,
     Login,
-    Logout
+    Logout,
+    getUser
   }
