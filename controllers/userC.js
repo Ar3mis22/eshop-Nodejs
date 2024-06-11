@@ -165,7 +165,11 @@ const Login = async (req, res) => {
     if (match) {
       // Login successful
       console.log("User logged in successfully!");
-      return res.status(201).json({ message: "User Logged in Succesfully!" });
+      console.log(foundUser._id);
+      return res.status(201).json({ 
+        message: "User Logged in Succesfully!" ,
+        id: foundUser._id,
+      });
   
   
     } else {

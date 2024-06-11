@@ -14,6 +14,7 @@ app.options('*',cors())
 const productRouter = require('./routers/productRoutes');
 const categoryRouter = require('./routers/categoryRoutes');
 const userRouter = require('./routers/userRoutes');
+const fileUpload = require('express-fileupload');
 
 // Middleware
 app.use(bodyParser.json());
@@ -23,6 +24,9 @@ app.use(morgan('tiny'));
 app.use('/product', productRouter);
 app.use('/category',categoryRouter);
 app.use('/user', userRouter);
+app.use(fileUpload({
+  useTempFiles: true
+}))
 
 // Connect to MongoDB
 mongoose.connect(process.env.CONNECTION_STRING, {
